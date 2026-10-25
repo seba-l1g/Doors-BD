@@ -1,0 +1,28 @@
+-- 1. GENERAR QR
+SET SERVEROUTPUT ON;
+DECLARE
+    V_CODIGO VARCHAR2(100);
+BEGIN
+    PKG_DOORS.GENERAR_QR('nueva.visit1a1@gmail.com', 'Juan Perez', 1, V_CODIGO);
+    DBMS_OUTPUT.PUT_LINE('Codigo QR generado correctamente');
+    DBMS_OUTPUT.PUT_LINE('QR generado: ' || V_CODIGO);
+    COMMIT;
+END;
+/
+
+-- 2. VALIDAR QR Y REGISTRAR ACCESO
+DECLARE
+    V_CODIGO VARCHAR2(100) := '5EB298C12312037BE063020011ACB66C';
+    V_VALIDO NUMBER;
+BEGIN
+    V_VALIDO := PKG_DOORS.VALIDAR_QR(V_CODIGO);
+
+    IF V_VALIDO = 1 THEN
+        DBMS_OUTPUT.PUT_LINE('QR valido');
+        DBMS_OUTPUT.PUT_LINE('Acceso registrado en ACCESO y LOGS');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('QR no valido o vencido');
+    END IF;
+    COMMIT;
+END;
+/

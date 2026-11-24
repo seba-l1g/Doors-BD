@@ -4,6 +4,7 @@ if (!db.getCollectionNames().includes("invitaciones")) {
 }
 
 // Insertar una invitacion individual con insertOne
+use("DOORS_DB");
 db.invitaciones.insertOne({
     codigoInvitacion: "INV-0001",
     residente: {
@@ -38,6 +39,7 @@ db.invitaciones.insertOne({
 });
 
 // Insertar nueve invitaciones adicionales con insertMany
+use("DOORS_DB");
 db.invitaciones.insertMany([
     {
         codigoInvitacion: "INV-0002",
@@ -327,9 +329,11 @@ db.invitaciones.insertMany([
 ]);
 
 // Contar documentos totales
+use("DOORS_DB");
 print(db.invitaciones.countDocuments());
 
 // Consultar todas las invitaciones
+use("DOORS_DB");
 db.invitaciones.find();
 
 // Consultar invitaciones activas
@@ -402,6 +406,7 @@ db.invitaciones.distinct("tipoVisita");
 
 // UPDATE
 // Modificar una invitacion con SET
+use("DOORS_DB");
 db.invitaciones.updateOne(
     { codigoInvitacion: "INV-0001" },
     {
@@ -418,6 +423,7 @@ db.invitaciones.updateOne(
 );
 
 // Eliminar un campo con UNSET
+use("DOORS_DB");
 db.invitaciones.updateOne(
     { codigoInvitacion: "INV-0002" },
     {
@@ -427,7 +433,7 @@ db.invitaciones.updateOne(
 
 // Agregar un movimiento al arreglo con PUSH
 db.invitaciones.updateOne(
-    { codigoInvitacion: "INV-0001" },
+    { codigoInvitacion: "INV-0002" },
     {
         $push: {
             accesos: {
@@ -441,6 +447,7 @@ db.invitaciones.updateOne(
 );
 
 // Actualizar varias invitaciones con updateMany
+use("DOORS_DB");
 db.invitaciones.updateMany(
     { estado: "ACTIVA" },
     {
@@ -448,13 +455,9 @@ db.invitaciones.updateMany(
     }
 );
 
-// Comprobar las actualizaciones
-db.invitaciones.find(
-    { codigoInvitacion: "TEST-001" }
-);
-
 // DELETE
 // Eliminar una invitacion de prueba
+use("DOORS_DB");
 db.invitaciones.deleteOne({
     codigoInvitacion: "TEST-001"
 });
